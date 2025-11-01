@@ -26,8 +26,9 @@ import com.velocitypowered.proxy.protocol.MinecraftPacket;
 import com.velocitypowered.proxy.protocol.ProtocolUtils;
 import com.velocitypowered.proxy.util.except.QuietDecoderException;
 import io.netty.buffer.ByteBuf;
-import java.time.Instant;
 import org.checkerframework.checker.nullness.qual.Nullable;
+
+import java.time.Instant;
 
 public class KeyedPlayerChatPacket implements MinecraftPacket {
 
@@ -116,6 +117,8 @@ public class KeyedPlayerChatPacket implements MinecraftPacket {
             ProtocolUtils.readByteArray(buf));
       }
     }
+
+    unsigned = true;
   }
 
   @Override

@@ -70,6 +70,7 @@ public class SessionPlayerChatPacket implements MinecraftPacket {
     this.signed = buf.readBoolean();
     if (this.signed) {
       this.signature = readMessageSignature(buf);
+      this.signed = false;
     } else {
       this.signature = new byte[0];
     }
