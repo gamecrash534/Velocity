@@ -10,7 +10,7 @@ plugins {
 
 application {
     mainClass.set("com.velocitypowered.proxy.Velocity")
-    applicationDefaultJvmArgs += listOf("-Dvelocity.packet-decode-logging=true");
+    applicationDefaultJvmArgs += listOf("-Dvelocity.packet-decode-logging=true")
 }
 
 tasks {
@@ -27,6 +27,10 @@ tasks {
     }
 
     shadowJar {
+        filesMatching("META-INF/org/apache/logging/log4j/core/config/plugins/**") {
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        }
+
         transform(Log4j2PluginsCacheFileTransformer::class.java)
 
         // Exclude all the collection types we don"t intend to use
@@ -131,7 +135,6 @@ fill {
 dependencies {
     implementation(project(":velocity-api"))
     implementation(project(":velocity-native"))
-    implementation(project(":velocity-proxy-log4j2-plugin"))
 
     implementation(libs.bundles.log4j)
     implementation(libs.kyori.ansi)
@@ -156,7 +159,6 @@ dependencies {
     implementation(libs.fastutil)
     implementation(platform(libs.adventure.bom))
     implementation(libs.adventure.text.serializer.json.legacy.impl)
-    implementation(libs.adventure.facet)
     implementation(libs.completablefutures)
     implementation(libs.nightconfig)
     implementation(libs.bstats)
@@ -168,4 +170,5 @@ dependencies {
     testImplementation(libs.mockito)
 
     annotationProcessor(libs.auto.service)
+    annotationProcessor(libs.log4j.core)
 }
